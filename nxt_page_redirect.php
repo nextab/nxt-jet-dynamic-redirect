@@ -39,7 +39,7 @@ function nxt_page_redirect() {
 	// Get the value of the 'nxt-pv-subs-only' meta field.
 	$subs_only = get_post_meta($id,'nxt-pv-subs-only', true);
 	$url_permission = get_post_meta($id, 'nxt-pv-redirect-permission', true);
-	if(!current_user_can('manage_options') && $subs_only != 'false' && is_user_logged_in() && current_user_can( 'can_signup_for_events') && $url_permission != '') {
+	if(!current_user_can('manage_options') && $subs_only != 'false' && $url_permission != '' && (is_user_logged_in() && current_user_can( 'can_signup_for_events') || !is_user_logged_in())) {
 		wp_safe_redirect($url_permission, '302', 'nxt-redirect-confirmed-users');
 		exit;
 	}
